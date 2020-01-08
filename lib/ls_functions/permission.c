@@ -61,14 +61,14 @@ void permissions_oth(struct stat stat1)
 
     if (stat1.st_mode & S_ISVTX) {
         if (stat1.st_mode & S_IXOTH)
-            write(1, "t", 1);
+            write(1, "t.", 2);
         else
-            write(1, "T", 1);
+            write(1, "T.", 2);
     } else {
         if (stat1.st_mode & S_IXOTH)
-            write(1, "x", 1);
+            write(1, "x.", 2);
         else
-            write(1, "-", 1);
+            write(1, "-.", 2);
     }
 }
 
