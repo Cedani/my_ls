@@ -44,12 +44,9 @@ void parsing_flag(int argc, char **argv)
             if (argv[i][j] == 'R')
                 f_r += 1;
         }
-        // printf("done par_flag\n");
     }
-    if (f_l > 0)
-        flag_l = ON;
-    if (f_t > 0)
-        flag_t = ON;
+    flag_l = f_l > 0 ? ON : OFF;
+    flag_t = f_t > 0 ? ON : OFF;
     launch_functions(argv, flag_l, flag_t, f_r);
 }
 
@@ -81,7 +78,6 @@ int launch_t_ls(char **argv, FLAG flag_t)
     int i = 0;
     t_file *list = NULL;
     char **tab = files_arg(argv);
-    printf("done t_ls\n");
 
     if (flag_t == ON) {
         for (; tab[i]; i += 1) {
