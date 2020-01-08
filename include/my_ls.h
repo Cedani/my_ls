@@ -13,11 +13,13 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <stddef.h>
 #include <unistd.h>
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
 #include <errno.h>
+#include <stdarg.h>
 
 typedef enum {
     ON,
