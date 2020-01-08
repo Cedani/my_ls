@@ -8,7 +8,7 @@
 #include "../../include/my_ls.h"
 #include "../../include/my_printf.h"
 
-char *my_strstr(char *str, char const *to_find)
+int my_strstr(char *str, char const *to_find)
 {
     if (str[0] != '\0' &&  to_find[0] == '\0') {
         return str;

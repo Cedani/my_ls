@@ -103,6 +103,8 @@ void error_ls(char **argv)
                 perror("Error");
                 exit (84);
             }
+            if (!dir)
+                test_exist(argv[i]);
             closedir (dir);
         }
     }

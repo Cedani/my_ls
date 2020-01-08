@@ -22,15 +22,12 @@ void get_time(struct stat stat1)
     }
 }
 
-// void device(char **argv, int argc)
-// {
-//     char *test = NULL;
+void test_exist(char *filepath)
+{
+    struct stat stat1;
 
-//     for (int i = 1; argv[i]; i += 1) {
-//         if (my_strstr)
-//     }
-// }
-
-// void swap_string(char **argv, int index) {
-//     char *
-// }
+    lstat(filepath, &stat1);
+    info_file(stat1);
+    my_printf(" %s\n", filepath);
+    exit(0);
+}

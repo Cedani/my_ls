@@ -58,6 +58,7 @@ int launch_t_ls(char **argv, FLAG flag_t);
 void error_ls(char **argv);
 char **files_arg(char **argv);
 int test_file(char *filepath);
-char *my_strstr(char *str, char const *to_find);
+int my_strstr(char *str, char const *to_find);
+void test_exist(char *filepath);
 int my_strcmp(char const *s1, char const *s2);
 #endif /* !ls */
