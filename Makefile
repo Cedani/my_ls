@@ -17,10 +17,13 @@ LIB		=		./lib/my/my_putstr.c		\
 				./lib/my/funcs2.c		\
 				./lib/my/funcs3.c 		\
 				./lib/my/my_strtol.c	\
+				./lib/my/my_strcat.c	\
 
 LS_FUNC	=		./lib/ls_functions/listing.c	\
 				./lib/ls_functions/permission.c		\
-				./lib/ls_functions/get_time.c
+				./lib/ls_functions/get_time.c		\
+				./lib/ls_functions/flag_ls_t.c		\
+				./lib/ls_functions/flag_ls_r.c
 
 MAIN	=		main.c		\
 
@@ -40,7 +43,7 @@ LIBMY	=		./lib/my/libmy.a
 
 all:	$(OBJ)
 	ar rc $(LIBMY) $(OBJ)
-	$(CC) -o $(NAME) $(MAIN) $(LIBMY)
+	$(CC) -g3 -o $(NAME) $(MAIN) $(LIBMY)
 
 tests_run:
 	$(CC) -o units $(SRC) $(UNIT) --coverage -lcriterion ./lib/my/libmy.a

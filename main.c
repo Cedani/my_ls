@@ -9,9 +9,6 @@
 
 int main(int argc, char **argv)
 {
-    if (argc == 1)
-        my_ls("./");
-    else
-        my_ls(argv[1]);
+    flag_ls_r("./", 0, 0);
     return (0);
 }

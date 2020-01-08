@@ -72,5 +72,8 @@ void get_username(struct stat stat1)
 
     write(1, usr->pw_name, my_strlen(usr->pw_name));
     write(1, " ", 1);
-    write(1, grp->gr_name, my_strlen(grp->gr_name));
+    if (grp)
+        write(1, grp->gr_name, my_strlen(grp->gr_name));
+    else
+        write(1, "0", 1);
 }
