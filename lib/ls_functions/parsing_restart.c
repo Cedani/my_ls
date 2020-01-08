@@ -35,11 +35,11 @@ char **files_arg(char **argv)
     int k = 0;
 
     if (nb_f == 0) {
-        flag_list = malloc(sizeof(char *));
+        flag_list = malloc(sizeof(char *) * 2);
         flag_list[0] = malloc(sizeof(char) * 2);
         flag_list[0] = "./";
     } else {
-        flag_list = malloc(sizeof(char *) * nb_f);
+        flag_list = malloc(sizeof(char *) * nb_f + 1);
         for (int i = nb_flag(argv) + 1; argv[i]; i += 1) {
             flag_list[k] = malloc(sizeof(char) * my_strlen(argv[i]));
             flag_list[k] = my_strcat(flag_list[k], argv[i]);

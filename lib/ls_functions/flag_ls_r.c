@@ -83,5 +83,6 @@ t_file *file_list(char *filepath, int *i)
             j += 1;
         }
     }
+    closedir(dir);
     return (list);
 }

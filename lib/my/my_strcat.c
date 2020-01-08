@@ -18,14 +18,14 @@ char *my_strcat (char *dest , char const *src)
     char *str = malloc(sizeof(char) * len);
 
     while (j < len) {
-        if (j < my_strlen(dest)){
+        if (dest[i]){
             str[j] = dest[i];
-            i++;
+            i += 1;
         } else {
             str[j] = src[k];
-            k++;
+            k += 1;
         }
-        j++;
+        j += 1;
     }
     return (str);
 }
