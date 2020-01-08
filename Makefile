@@ -23,7 +23,9 @@ LS_FUNC	=		./lib/ls_functions/listing.c	\
 				./lib/ls_functions/permission.c		\
 				./lib/ls_functions/get_time.c		\
 				./lib/ls_functions/flag_ls_t.c		\
-				./lib/ls_functions/flag_ls_r.c
+				./lib/ls_functions/flag_ls_r.c		\
+				./lib/ls_functions/parsing.c		\
+				./lib/ls_functions/parsing_restart.c
 
 MAIN	=		main.c		\
 

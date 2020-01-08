@@ -41,25 +41,10 @@ char *give_test(char *filepath, char *next, char *test)
     return (test);
 }
 
-void ls_r_allon(char *filepath)
+void print_filepath(char *filepath)
 {
-    DIR *dir = opendir(filepath);
-    struct dirent *all = readdir(dir);
-    int ok = 0;
-    struct stat stat1;
-    char *test = NULL;
-
-    my_printf("%s :\n", filepath);
-    flag_ls_l(filepath, 0);
-    for (; all; all = readdir(dir)) {
-        test = give_test(filepath, all->d_name, test);
-        lstat(test, &stat1);
-        if (all->d_name[0] != '.') {
-            if (S_ISDIR(stat1.st_mode)) {
-                ls_r_allon(test);
-                my_printf("\n");
-            }
-        }
-    }
-    closedir(dir);
+    if (my_strlen(filepath) == 2)
+        my_printf(".: \n");
+    else
+        my_printf("%s: \n", filepath);
 }

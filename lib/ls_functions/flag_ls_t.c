@@ -42,40 +42,28 @@ int file_len(char *filepath)
     return (i);
 }
 
-t_file *flag_ls_t(char *filepath, int *i)
+void my_ls(t_file *list, int size_list)
 {
-    int len = file_len(filepath);
-    DIR *dir = opendir(filepath);
-    char *test = NULL;
-    struct dirent *all = readdir(dir);
-    t_file *list = malloc(sizeof(*list) * len);
-    struct stat stat1;
-
-    for (; *i < len; all = readdir(dir)) {
-        test = give_test(filepath, all->d_name, test);
-        if (all->d_name[0] != '.') {
-            lstat(test, &stat1);
-            list[*i].name = all->d_name;
-            list[*i].time = stat1.st_mtime;
-            *i += 1;
-        }
-    }
-    sorting(list, *i);
-    closedir(dir);
-    *i = len;
-    return (list);
+    for (int i = 0; i < size_list; i += 1)
+        my_printf("%s ", parse(list[i].name));
+    my_printf("\n");
 }
 
-void my_ls (char *filepath)
+void total(char *filepath)
 {
     DIR *dir = opendir(filepath);
     struct dirent *all = readdir(dir);
+    struct stat stat1;
+    int total = 0;
+    char *test = NULL;
 
     for (; all; all = readdir(dir)) {
         if (all->d_name[0] != '.') {
-            write(1, all->d_name, my_strlen(all->d_name));
-            write(1, "\n", 1);
+            test = give_test(filepath, all->d_name, test);
+            lstat(test, &stat1);
+            total += stat1.st_blocks;
         }
     }
+    my_printf("total %d\n", total / 2);
     closedir(dir);
 }

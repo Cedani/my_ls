@@ -34,19 +34,16 @@ void type_file(struct stat stat1)
         write(1, "c", 1);
 }
 
-void flag_l_normal(DIR *dir, struct dirent *all, char *filepath)
+void my_ls_l(t_file *list, FLAG flag_t, int size_list)
 {
-    char *test;
     struct stat stat1;
+    int total = 0;
 
-    for (int i = 0; all; all = readdir(dir)) {
-        if (all->d_name[0] != '.') {
-            test = my_strcat(filepath, "/");
-            test = my_strcat(test, all->d_name);
-            lstat(test, &stat1);
-            info_file(stat1);
-            write(1, all->d_name, my_strlen(all->d_name));
-            write(1, "\n", 1);
-        }
+    if (flag_t == ON)
+        sorting(list, size_list);
+    for (int i = 0; i < size_list; i += 1) {
+        lstat(list[i].name, &stat1);
+        info_file(stat1);
+        my_printf(" %s\n", parse(list[i].name));
     }
 }

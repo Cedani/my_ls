@@ -17,6 +17,7 @@
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
+#include <errno.h>
 
 typedef enum {
     ON,
@@ -36,16 +37,22 @@ void permission(struct stat stat1);
 void type_file(struct stat stat1);
 void get_username(struct stat stat1);
 void get_time(struct stat stat1);
-void my_ls(char *filepath);
-t_file *flag_ls_t(char *filepath, int *i);
-void flag_ls_r(char *filepath, int flag_l, int flag_t);
-void flag_r_t(char *filepath);
-void print_flag_t(t_file *list, int i);
-void flag_r_normal(char *filepath);
-void flag_l_normal(DIR *dir, struct dirent *all, char *filepath);
-void ls_r_allon(char *filepath);
-void print_flag_t(t_file *list, int i);
-void flag_ls_l(char *filepath, FLAG flag_t);
+void my_ls(t_file *list, int size_list);
+char *parse(char *filepath);
 char *my_strcat (char *dest , char const *src);
 char *give_test(char *filepath, char *next, char *test);
+t_file *file_list(char *filepath, int *i);
+void my_ls_l(t_file *list, FLAG flag_t, int size_list);
+void my_ls_t(t_file *list, FLAG only, int size_list);
+void my_ls_r(char *filepath, FLAG flag_l, FLAG flag_t);
+void sorting(t_file *list, int size);
+int file_len(char *filepath);
+void total(char *filepath);
+void print_filepath(char *filepath);
+int parsing_argument(int argc, char **argv);
+void parsing_flag(int argc, char **argv);
+int launch_functions(char **argv, FLAG flag_l, FLAG flag_t, int f_r);
+int launch_t_ls(char **argv, FLAG flag_t);
+void error_ls(char **argv);
+char **files_arg(char **argv);
 #endif /* !ls */

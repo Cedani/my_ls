@@ -8,102 +8,80 @@
 #include "../../include/my_ls.h"
 #include "../../include/my_printf.h"
 
-void flag_ls_r(char *filepath, int flag_l, int flag_t)
+void my_ls_r(char *filepath, FLAG flag_l, FLAG flag_t)
 {
-    DIR *dir = opendir(filepath);
-    struct dirent *all = readdir(dir);
+    int i = 0;
+    t_file *list = file_list(filepath, &i);
     struct stat stat1;
-    char *test = NULL;
-    int ok = 0;
 
+    print_filepath(filepath);
     if (flag_l == ON) {
-        ls_r_allon(filepath);
+        total(filepath);
+        my_ls_l(list, flag_t, i);
     }
-    else if (flag_t == ON) {
-        flag_r_t(filepath);
-    } else
-        flag_r_normal(filepath);
-    closedir(dir);
-}
-
-void flag_r_t(char *filepath)
-{
-    char *test;
-    struct stat stat1;
-    int i = 0;
-    t_file *list = flag_ls_t(filepath, &i);
-    int ok = 0;
-
+    else if (flag_t == ON)
+        my_ls_t(list, ON, i);
+    else
+        my_ls(list, i);
+    my_printf("\n");
     for (int j = 0; j < i; j += 1) {
-        test = my_strcat(filepath, "/");
-        test = my_strcat(test, list[i].name);
-        lstat(test, &stat1);
-        if (ok == 0) {
-            print_flag_t(list, i);
-            ok += 1;
-        }
-        if (S_ISDIR(stat1.st_mode))
-            return (flag_r_t(filepath));
-    }
-}
-
-void print_flag_t(t_file *list, int i)
-{
-    for (int j = 0; j < i; j += 1) {
-        write(1, list[j].name, my_strlen(list[j].name));
-        write(1, "\n", 1);
-    }
-}
-
-void flag_r_normal(char *filepath)
-{
-    DIR *dir = opendir(filepath);
-    struct dirent *all = readdir(dir);
-    char *test;
-    struct stat stat1;
-    int ok = 0;
-
-    for (; all; all = readdir(dir)) {
-        lstat(all->d_name, &stat1);
-        if (ok == 0) {
-            my_ls(filepath);
-            ok += 1;
-        }
+        lstat(list[j].name, &stat1);
         if (S_ISDIR(stat1.st_mode)) {
-            if (filepath[my_strlen(filepath) - 1] == '/')
-                test = my_strcat(filepath, all->d_name);
-            else {
-                test = my_strcat(filepath, "/");
-                test = my_strcat(test, all->d_name);
-            }
-            printf("test = %s\n", test);
-            // test = my_strcat(test, all->d_name);
-            if (all->d_name[0] != '.')
-                return(flag_r_normal(test));
+            my_ls_r(list[j].name, flag_l, flag_t);
         }
     }
-    closedir(dir);
 }
 
-void flag_ls_l(char *filepath, FLAG flag_t)
+void my_ls_t(t_file *list, FLAG only, int size_list)
 {
+    sorting(list, size_list);
+
+    if (only == ON)
+        for (int i = 0; i < size_list; i += 1)
+            my_printf("%s ", parse(list[i].name));
+    my_printf("\n");
+}
+
+char *parse(char *filepath)
+{
+    int j = 0;
+    int i = 0;
+    int k = 0;
+    char *name = NULL;
+
+    for (; filepath[i]; i += 1)
+        if (filepath[i] == '/')
+            j = i;
+    name = malloc(sizeof(*name) * (my_strlen(filepath) - j - 1));
+    if (j == 0 && filepath[j] != '/')
+        i = j;
+    else
+        i = j + 1;
+    for (; filepath[i]; i += 1) {
+        name[k] = filepath[i];
+        k += 1;
+    }
+    name[k] = '\0';
+    return (name);
+}
+
+t_file *file_list(char *filepath, int *i)
+{
+    *i = file_len(filepath);
     DIR *dir = opendir(filepath);
     struct dirent *all = readdir(dir);
-    char *test = NULL;
     struct stat stat1;
-    t_file *list = NULL;
-    int i = 0;
+    t_file *list = malloc(sizeof(*list) * *i);
+    char *test = NULL;
 
-    if (flag_t == ON) {
-        list = flag_ls_t(filepath, &i);
-        for (int j = 0; j < i; j += 1) {
-            test = give_test(filepath, list[j].name, test);
+    for (int j = 0; j < *i; all = readdir(dir)) {
+        test = give_test(filepath, all->d_name, test);
+        if (all->d_name[0] != '.') {
             lstat(test, &stat1);
-            info_file(stat1);
-            write(1, list[j].name, my_strlen(list[j].name));
-            write(1, "\n", 1);
+            list[j].name = test;
+            list[j].time = stat1.st_mtime;
+            j += 1;
         }
-    } else
-        flag_l_normal(dir, all, filepath);
-    closedir(dir);
+    }
+    return (list);
 }
