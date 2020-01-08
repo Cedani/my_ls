@@ -21,3 +21,16 @@ void get_time(struct stat stat1)
             write(1, &s[i], 1);
     }
 }
+
+// void device(char **argv, int argc)
+// {
+//     char *test = NULL;
+
+//     for (int i = 1; argv[i]; i += 1) {
+//         if (my_strstr)
+//     }
+// }
+
+// void swap_string(char **argv, int index) {
+//     char *
+// }

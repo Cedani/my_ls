@@ -18,11 +18,9 @@ int parsing_argument(int argc, char **argv)
         my_ls(list, i);
         return (0);
     }
-    if (argv[1][0] != '-') {
-        for (int i = 1; i < argc; i += 1) {
-            list = file_list(argv[i], &i);
+    if (argc == 2 && argv[1][0] != '-') {
+            list = file_list(argv[1], &i);
             my_ls(list, i);
-        }
         return (0);
     }
     parsing_flag(argc, argv);
