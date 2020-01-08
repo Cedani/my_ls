@@ -18,7 +18,8 @@ int nb_file(char **argv)
     return (nb_f);
 }
 
-int nb_flag(char **argv) {
+int nb_flag(char **argv)
+{
     int nb_fl = 0;
 
     for (int i = 1; argv[i]; i += 1)

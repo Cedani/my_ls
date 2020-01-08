@@ -52,7 +52,7 @@ char *parse(char *filepath)
     for (; filepath[i]; i += 1)
         if (filepath[i] == '/')
             j = i;
-    name = malloc(sizeof(*name) * (my_strlen(filepath) - j - 1));
+    name = malloc(sizeof(*name) * (my_strlen(filepath) - j));
     if (j == 0 && filepath[j] != '/')
         i = j;
     else
@@ -69,8 +69,8 @@ t_file *file_list(char *filepath, int *i)
 {
     *i = file_len(filepath);
     DIR *dir = opendir(filepath);
-    struct dirent *all = readdir(dir);
     struct stat stat1;
+    struct dirent *all = readdir(dir);
     t_file *list = malloc(sizeof(*list) * *i);
     char *test = NULL;
 

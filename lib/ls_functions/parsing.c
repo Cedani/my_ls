@@ -6,6 +6,7 @@
 */
 
 #include "../../include/my_ls.h"
+#include "../../include/my_printf.h"
 
 int parsing_argument(int argc, char **argv)
 {
@@ -104,6 +105,7 @@ void error_ls(char **argv)
                 perror("Error");
                 exit (84);
             }
+            closedir (dir);
         }
     }
 }

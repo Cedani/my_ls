@@ -55,4 +55,5 @@ int launch_functions(char **argv, FLAG flag_l, FLAG flag_t, int f_r);
 int launch_t_ls(char **argv, FLAG flag_t);
 void error_ls(char **argv);
 char **files_arg(char **argv);
+int test_file(char *filepath);
 #endif /* !ls */

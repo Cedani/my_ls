@@ -35,6 +35,8 @@ SRC		=		$(LIB)	\
 
 UNIT 	=		./tests/test.c 	\
 
+CFLAGS	=	-g3
+
 OBJ 	= $(SRC:.c=.o)
 
 CC 		= gcc
@@ -45,7 +47,7 @@ LIBMY	=		./lib/my/libmy.a
 
 all:	$(OBJ)
 	ar rc $(LIBMY) $(OBJ)
-	$(CC) -g3 -o $(NAME) $(MAIN) $(LIBMY)
+	$(CC) -o $(NAME) $(MAIN) $(LIBMY) -g
 
 tests_run:
 	$(CC) -o units $(SRC) $(UNIT) --coverage -lcriterion ./lib/my/libmy.a
