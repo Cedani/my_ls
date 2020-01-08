@@ -64,6 +64,7 @@ int launch_functions(char **argv, FLAG flag_l, FLAG flag_t, int f_r)
     }
     if (flag_l == ON) {
         for (int j = 0; tab[j]; j += 1) {
+            total(tab[j]);
             list = file_list(tab[j], &size);
             my_ls_l(list, flag_t, size);
         }
