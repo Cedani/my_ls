@@ -47,7 +47,7 @@ void my_ls_l(t_file *list, FLAG flag_t, int size_list)
         lstat(list[i].name, &stat1);
         info_file(stat1);
         test = parse(list[i].name);
-        my_printf(" %s\n", test);
+        my_printf(" %s", test);
     }
     free(test);
 }
