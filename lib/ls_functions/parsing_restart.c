@@ -46,5 +46,6 @@ char **files_arg(char **argv)
             k += 1;
         }
     }
+    flag_list[k] = NULL;
     return (flag_list);
 }
