@@ -32,12 +32,15 @@ char **files_arg(char **argv)
 {
     int nb_f = nb_file(argv);
     char **flag_list = NULL;
+    char *test = "./";
     int k = 0;
 
     if (nb_f == 0) {
-        flag_list = malloc(sizeof(char *) * 2);
-        flag_list[0] = malloc(sizeof(char) * 2);
-        flag_list[0] = "./";
+        flag_list = malloc(sizeof(char *) + 1);
+        for (; k < 1; k += 1) {
+            flag_list[k] = malloc(sizeof(char) * 3);
+            flag_list[k] = my_strcat(flag_list[k], test);
+        }
     } else {
         flag_list = malloc(sizeof(char *) * nb_f + 1);
         for (int i = nb_flag(argv) + 1; argv[i]; i += 1) {

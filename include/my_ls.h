@@ -7,6 +7,8 @@
 
 #ifndef ls
 #define ls
+#define maj(devnum)           (((unsigned int)devnum & 0xFF00U) >> 8)
+#define min(devnum)           ((unsigned int)devnum & 0xFFFF00FFU)
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,11 +56,11 @@ void print_filepath(char *filepath);
 int parsing_argument(int argc, char **argv);
 void parsing_flag(int argc, char **argv);
 int launch_functions(char **argv, FLAG flag_l, FLAG flag_t, int f_r);
-int launch_t_ls(char **argv, FLAG flag_t);
+int launch_t_ls(char **argv, FLAG flag_t, char **tab);
 void error_ls(char **argv);
 char **files_arg(char **argv);
 int test_file(char *filepath);
 int my_strstr(char *str, char const *to_find);
-void test_exist(char *filepath);
+int test_exist(char *filepath, FLAG flag_t);
 int my_strcmp(char const *s1, char const *s2);
 #endif /* !ls */

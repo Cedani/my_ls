@@ -13,7 +13,10 @@ void info_file(struct stat stat1)
     type_file(stat1);
     permission(stat1);
     write(1, " ", 1);
-    my_put_nbr(stat1.st_nlink);
+    if (S_ISCHR(stat1.st_mode))
+        my_printf("%d, %d", maj(stat1.st_dev), min(stat1.st_dev));
+    else
+        my_put_nbr(stat1.st_nlink);
     write(1, " ", 1);
     get_username(stat1);
     write(1, "  ", 2);
@@ -47,7 +50,7 @@ void my_ls_l(t_file *list, FLAG flag_t, int size_list)
         lstat(list[i].name, &stat1);
         info_file(stat1);
         test = parse(list[i].name);
-        my_printf(" %s", test);
+        my_printf(" %s\n", test);
     }
     free(test);
 }

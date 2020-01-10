@@ -19,8 +19,10 @@ int parsing_argument(int argc, char **argv)
         return (0);
     }
     if (argc == 2 && argv[1][0] != '-') {
+        if (test_exist(argv[1], OFF) == 1) {
             list = file_list(argv[1], &i);
             my_ls(list, i);
+        }
         return (0);
     }
     parsing_flag(argc, argv);
@@ -56,28 +58,28 @@ int launch_functions(char **argv, FLAG flag_l, FLAG flag_t, int f_r)
     t_file *list = NULL;
     char **tab = files_arg(argv);
 
-    if (f_r > 0) {
-        for (; tab[i]; i += 1)
-            my_ls_r(tab[i], flag_l, flag_t);
-        return (0);
-    }
-    if (flag_l == ON) {
-        for (int j = 0; tab[j]; j += 1) {
-            total(tab[j]);
-            list = file_list(tab[j], &size);
-            my_ls_l(list, flag_t, size);
+    if (f_r > 0)
+        for (; tab[i]; i += 1) {
+            if (test_exist(tab[i], flag_l) == 1)
+                my_ls_r(tab[i], flag_l, flag_t);
         }
-        return (0);
-    }
-    launch_t_ls(argv, flag_t);
+    else if (flag_l == ON)
+        for (int j = 0; tab[j]; j += 1) {
+            if (test_exist(tab[j], ON) == 1) {
+                total(tab[j]);
+                list = file_list(tab[j], &size);
+                my_ls_l(list, flag_t, size);
+            }
+        }
+    else
+        launch_t_ls(argv, flag_t, tab);
 }
 
-int launch_t_ls(char **argv, FLAG flag_t)
+int launch_t_ls(char **argv, FLAG flag_t, char **tab)
 {
     int size = 0;
     int i = 0;
     t_file *list = NULL;
-    char **tab = files_arg(argv);
 
     if (flag_t == ON) {
         for (; tab[i]; i += 1) {
@@ -86,8 +88,10 @@ int launch_t_ls(char **argv, FLAG flag_t)
         }
     } else {
         for (; tab[i]; i += 1) {
-            list = file_list(tab[i], &size);
-            my_ls(list, size);
+            if (test_exist(tab[i], ON) == 1) {
+                list = file_list(tab[i], &size);
+                my_ls(list, size);
+            }
         }
     }
     return (0);
@@ -103,8 +107,6 @@ void error_ls(char **argv)
                 perror("Error");
                 exit (84);
             }
-            if (!dir)
-                test_exist(argv[i]);
             closedir (dir);
         }
     }

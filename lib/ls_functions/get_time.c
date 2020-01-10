@@ -22,12 +22,16 @@ void get_time(struct stat stat1)
     }
 }
 
-void test_exist(char *filepath)
+int test_exist(char *filepath, FLAG flag_info)
 {
     struct stat stat1;
 
     lstat(filepath, &stat1);
-    info_file(stat1);
+    if (S_ISDIR(stat1.st_mode)) {
+        return (1);
+    }
+    if (flag_info == ON)
+        info_file(stat1);
     my_printf(" %s\n", filepath);
-    exit(0);
+    return (0);
 }
