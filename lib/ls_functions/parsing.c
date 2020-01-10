@@ -10,7 +10,7 @@
 
 int parsing_argument(int argc, char **argv)
 {
-    t_file *list;
+    t_file *list = NULL;
     int i = 0;
 
     if (argc == 1) {
